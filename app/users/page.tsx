@@ -17,21 +17,24 @@
 import React from "react";
 import User from "../components/User";
 import { sort } from "fast-sort";
+import Link from "next/link";
+import { GET } from "../api/users/route";
 
-export interface Users {
-  id: number,
-  name: string,
-  username: string
-  email: string
-
-}
 
 interface Props {
   searchParams: { sortOrder: string }
 }
 
+export interface Users {
+  id: number
+  name: string
+  username: string
+  email: string
+}
+
 // query parameters doesnt need to be inside on dynamic route to be used
 const UsersPage = async ({ searchParams: { sortOrder } }: Props) => {
+  ;
   const fetchApi = await fetch('https://jsonplaceholder.typicode.com/users',
     // this means that we are disabling the caching
     { cache: 'no-store' }
@@ -44,10 +47,13 @@ const UsersPage = async ({ searchParams: { sortOrder } }: Props) => {
   const user: Users[] = await fetchApi.json()
   const filteredUsers: Users[] = sort(user).asc(sortOrder === 'name' ? user => user.name : user => user.email)
   return (
-    <div data-theme="light">
+    <div className="flex flex-col ml-10">
       {/* not the optimal navigation since the files are redownloaded that are fetched on the root component, it makes the network request bloated */}
-      <p>User List </p>
+
+      <p className="text-3xl mt-5 font-extrabold">User List </p>
+      <Link href="/users/new" className=" text-white w-28 rounded-md px-10 py-1  hover:text-purple bg-blue-600"> New </Link>
       <User user={filteredUsers} />
+
       {/* link is a built in tags that has the same function in Link react, but it doesnt need a component here */}
       {/* only renders the needed component details which is the new component which doesnt require to download the details again from the root component*/}
     </div>

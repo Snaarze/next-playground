@@ -8,9 +8,9 @@ interface Props {
 
 
 const User = ({ user }: Props) => {
-
+    
     return (
-        <div>
+        <div className=''>
             {/* current time only changes on development or treating it as static data/page, but in production it will not re-render the data */}
             <p>Current Time : {new Date().toLocaleTimeString()}</p>
             {/* when fetching data from the api it will treat it as unchanging data and store in a cache for faster access */}

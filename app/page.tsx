@@ -5,9 +5,8 @@ import Theme from "./components/Theme";
 
 export default function Home() {
   return (
-    <main data-theme="dark" className="min-h-screen">
-      <h1>Hello World!</h1>
-      <Link href={"/users"}>Users</Link>
+    <main data-theme="dark" className="w-screen flex flex-col justify-center items-center">
+      <h1 className="text-6xl font-extrabold">Hello World!</h1>
       <ProductCard />
       <Theme />
     </main>
