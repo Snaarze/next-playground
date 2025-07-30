@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
+import NavBar from "./navBar";
+import AuthProvider from "./auth/Provider";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,15 +28,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen  flex flex-col`}
       >
-        <nav className='flex gap-5 bg-slate-200 p-5 shadow-[20px_5px_20px_rgba(0,0,0,0.25)]'>
-          <Link href="/">Next.js</Link>
-          <Link href="/users">Users</Link>
-          <Link href="/admin">Admin</Link>
-        </nav>
-        <main className="flex flex-1 w-full">
-          <aside className='bg-slate-300 h-full w-78 pt-5 pl-20 shadow-[1px_5px_10px_rgba(0,0,0,0.25)] '>  Sidebar</aside>
-          {children}
-        </main>
+        <AuthProvider>
+          <NavBar />
+          <main className="flex flex-1 w-full">
+            <aside className="bg-slate-500 h-full w-78 pt-5 pl-20 shadow-[1px_5px_10px_rgba(0,0,0,0.25)] ">
+              Sidebar
+            </aside>
+            {children}
+          </main>
+        </AuthProvider>
       </body>
     </html>
   );
